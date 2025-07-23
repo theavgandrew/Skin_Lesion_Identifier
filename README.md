@@ -2,7 +2,7 @@
 
 A deep learning-based classifier built to identify skin lesions from dermatoscopic images using the HAM10000 dataset. This project was developed to explore the application of AI in healthcare, particularly dermatology, and to strengthen my foundations in computer vision using PyTorch.
 
----
+
 
 ## 📁 Dataset
 
@@ -16,7 +16,7 @@ This project uses the **[HAM10000](https://www.kaggle.com/datasets/kmader/skin-c
 - `vasc` - Vascular lesions  
 - `df` - Dermatofibroma
 
----
+
 
 ## 🧠 Project Goals
 
@@ -26,7 +26,7 @@ This project uses the **[HAM10000](https://www.kaggle.com/datasets/kmader/skin-c
 - Visualize predictions and model confidence
 - Evaluate performance using metrics beyond accuracy (e.g. confusion matrix)
 
----
+
 
 ## 🚀 Workflow
 
@@ -44,13 +44,13 @@ This project uses the **[HAM10000](https://www.kaggle.com/datasets/kmader/skin-c
    - Validation performance monitoring  
    - Confusion matrix analysis and misclassification visualization
 
----
+
 
 ## 📊 Results
 
 *To be filled in once training completes*
 
----
+
 
 ## 🛠 Future Improvements
 
@@ -58,7 +58,7 @@ This project uses the **[HAM10000](https://www.kaggle.com/datasets/kmader/skin-c
 - Compare custom CNN vs. transfer learning  
 - Deploy as a web app using Streamlit or Flask  
 
----
+
 
 ## 📌 Motivation
 
