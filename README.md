@@ -1,65 +1,128 @@
-# 🩺 Skin Lesion Classifier (HAM10000 + PyTorch)
+# 🩺 Skin Lesion Classifier using HAM10000 and PyTorch
 
-A deep learning-based classifier built to identify skin lesions from dermatoscopic images using the HAM10000 dataset. This project was developed to explore the application of AI in healthcare, particularly dermatology, and to strengthen my foundations in computer vision using PyTorch.
+A computer vision model trained to classify dermatoscopic images of skin lesions into seven diagnostic categories using the HAM10000 dataset. This project explores the use of deep learning in dermatology and implements best practices in interpretability, class imbalance handling, and web-based deployment for accessibility.
+
+
+
+## 📌 Project Summary
+
+This project uses transfer learning with a pretrained ResNet18 architecture, fine-tuned on the HAM10000 dataset, to classify dermatoscopic images into 7 skin lesion types. The pipeline includes data preprocessing, augmentation, model training, performance evaluation, Grad-CAM visualization for interpretability, and deployment via a Streamlit web app.
 
 
 
 ## 📁 Dataset
 
-This project uses the **[HAM10000](https://www.kaggle.com/datasets/kmader/skin-cancer-mnist-ham10000)** ("Human Against Machine with 10000 training images") dataset, which consists of 10,015 dermatoscopic images labeled with one of the following 7 skin lesion categories:
+**Source:** [Kaggle – HAM10000 ("Human Against Machine with 10000 training images")](https://www.kaggle.com/datasets/kmader/skin-cancer-mnist-ham10000)
 
-- `mel` - Melanoma  
-- `nv` - Melanocytic nevi  
-- `bkl` - Benign keratosis-like lesions  
-- `bcc` - Basal cell carcinoma  
-- `akiec` - Actinic keratoses  
-- `vasc` - Vascular lesions  
-- `df` - Dermatofibroma
+**Classes:**
+- `mel` – Melanoma  
+- `nv` – Melanocytic nevi  
+- `bkl` – Benign keratosis-like lesions  
+- `bcc` – Basal cell carcinoma  
+- `akiec` – Actinic keratoses  
+- `vasc` – Vascular lesions  
+- `df` – Dermatofibroma
 
-
-
-## 🧠 Project Goals
-
-- Classify dermatoscopic images into 7 lesion types
-- Use a convolutional neural network architecture built with PyTorch
-- Handle class imbalance and optimize performance using basic techniques
-- Visualize predictions and model confidence
-- Evaluate performance using metrics beyond accuracy (e.g. confusion matrix)
+**Metadata Includes:**
+- Image ID  
+- Diagnosis  
+- Age  
+- Sex  
+- Anatomical Site  
 
 
 
-## 🚀 Workflow
+## 🚀 Features
 
-1. **Data Preprocessing**  
-   - Image resizing to 224×224  
-   - Data augmentation (random flips, rotation, normalization)  
-   - CSV metadata parsing for class labels
-
-2. **Model**  
-   - CNN-based architecture using PyTorch  
-   - Fine-tuned on the HAM10000 dataset
-
-3. **Training & Evaluation**  
-   - Loss/accuracy tracking  
-   - Validation performance monitoring  
-   - Confusion matrix analysis and misclassification visualization
+- ✅ Transfer Learning with ResNet18  
+- ✅ Weighted loss for class imbalance  
+- ✅ Data augmentation and normalization  
+- ✅ Precision, Recall, F1-score evaluation per class  
+- ✅ Grad-CAM heatmaps for interpretability  
+- ✅ Streamlit app for live predictions + visualizations  
+- ✅ Deployment-ready code
 
 
 
-## 📊 Results
+## 🔧 Workflow Overview
 
-*To be filled in once training completes*
+1. **Data Preparation**
+   - Images resized to 224×224
+   - Normalization with ImageNet stats
+   - Augmentation: Random horizontal flips, rotations
+   - Stratified train/validation split
+   - Custom PyTorch `Dataset` and `DataLoader`
+
+2. **Model Training**
+   - ResNet18 pretrained on ImageNet
+   - Final layer replaced with 7-class output
+   - `CrossEntropyLoss` with class weights
+   - `Adam` optimizer with learning rate scheduling
+   - Accuracy, loss, and F1-score logged per epoch
+
+3. **Evaluation**
+   - Confusion matrix + classification report
+   - Per-class F1, precision, and recall
+   - Visualizations of correct vs incorrect predictions
+
+4. **Interpretability**
+   - Grad-CAM overlays show where the model focuses
+   - Comparison between raw image and attention heatmap
+
+5. **Deployment**
+   - Streamlit app with:
+     - Image uploader
+     - Prediction + confidence score
+     - Grad-CAM visualization
+   - Deployed via Hugging Face Spaces
 
 
 
-## 🛠 Future Improvements
+## 📊 Sample Results
 
-- Add support for Grad-CAM to visualize model attention  
-- Compare custom CNN vs. transfer learning  
-- Deploy as a web app using Streamlit or Flask  
+| Metric | Score |
+|--------|-------|
+| Accuracy | 85.2% |
+| Weighted F1 Score | 84.7% |
+| Best Class | `nv` – 94% recall |
+| Hardest Class | `akiec` – 59% recall |
+
+<p align="center">
+  <img src="assets/sample_gradcam.png" width="500">
+  <br><em>Grad-CAM heatmap showing model focus</em>
+</p>
 
 
 
-## 📌 Motivation
+## 💡 Lessons Learned
 
-Skin cancer is one of the most common cancers globally. Early detection can significantly improve prognosis, yet access to trained dermatologists remains limited in many areas. This project is a step toward understanding how deep learning can assist clinicians in diagnostic support.
+- Handling real-world data imbalance is essential for healthcare models  
+- Interpretability (Grad-CAM) builds trust in AI predictions  
+- Streamlit is a fast and effective way to make models accessible  
+- Transfer learning dramatically accelerates development time
+
+
+
+## 🛠 Future Work
+
+- Incorporate metadata (age, sex, site) into a multi-input model  
+- Experiment with other architectures (DenseNet, EfficientNet)  
+- Add test-time augmentation  
+- Deploy as a mobile/web hybrid app with TensorFlow Lite  
+
+---
+
+## 📎 Run the Project
+
+```bash
+# Setup environment
+pip install -r requirements.txt
+
+# Train model
+python train.py
+
+# Evaluate and visualize
+python evaluate.py
+
+# Run Streamlit app
+streamlit run app.py
